@@ -1,12 +1,15 @@
-from django.db import models
-from django.db.models.query import QuerySet
-from django.utils.text import slugify
 import random
 import string
+
+from django.db import models
+from django.utils.text import slugify
 from django.urls import reverse
 
+# type hinting imports
+from django.db.models.query import QuerySet
 
-def random_slug_generator() -> str:
+
+def generate_random_slug() -> str:
     """This function generates a random string of alphanumeric(ascii_letters) characters of length 3 and returns it."""
     return ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(3))
 
@@ -16,7 +19,7 @@ class Category(models.Model):
     A model representing a category in a store.
     """
     name = models.CharField("Категория", max_length=250, db_index=True)
-    parent = models.ForeignKey("Родительсая Категория",
+    parent = models.ForeignKey(
         'self', on_delete=models.CASCADE, related_name='children', blank=True, null=True
     )
     slug = models.SlugField("URL", max_length=250, unique=True, null=False, editable=True)
@@ -28,14 +31,7 @@ class Category(models.Model):
         verbose_name_plural = 'Категории'
         
     def __str__(self):
-        """Returns a string representation of the Category instance/objects.
-        
-        The string representation is in the form of a tree with the root category
-        at the top, and each subcategory indented under its parent category. The
-        full path of each category is included, with the root category's name first,
-        then each parent category's name in order from root to leaf, separated by
-        '>'.
-        """
+        """Returns a string representation of the Category instance/objects."""
         full_path = [self.name]
         k = self.parent
         while k is not None:
@@ -46,12 +42,12 @@ class Category(models.Model):
     def save(self, *args, **kwargs) -> None:
         """Saves the current instance of the model.
         
-        If the model has not been previously saved, it will be created using slugify random_slug_generator().
-        If the model has been previously saved, it will be updated with the new field values provided.
+        If the model has not been previously saved, it will be created using slugify generate_random_slug().
+        If the model has been previously saved, it will be update with the new field values provided.
         """
         if not self.slug:
             self.slug = slugify(
-                random_slug_generator() + "-pickBetter" + self.name
+                generate_random_slug() + "-pickBetter" + self.name
                 )
         super(Category, self).save(*args, **kwargs)
 
@@ -74,7 +70,7 @@ class Product(models.Model):
     image = models.ImageField("Изображение", upload_to="products/products/%Y/%m/%d")
     available = models.BooleanField("Наличие", default=True)
     created_at = models.DateTimeField("Дата создания", auto_now_add=True)
-    update_at = models.DateTimeField("Дата изменения", auto_now=True)
+    updated_at = models.DateTimeField("Дата изменения", auto_now=True)
 
     class Meta:
         verbose_name = 'Продукт'
@@ -90,14 +86,6 @@ class Product(models.Model):
 class ProductManager(models.Manager):
     """
     A custom manager for the Product model that provides additional functionality.
-
-    This manager overrides the default manager for the Product model and provides a new method, get_queryset,
-    that returns a QuerySet of all Product objects that are available. This is achieved by filtering the results
-    of the default manager's get_queryset method using the available field.
-
-    This manager can be accessed through the Product model using the objects attribute, which is a reference to the
-    custom manager. For example, Product.objects.get_queryset() can be used to retrieve a QuerySet of available
-    products.
     """
     def get_queryset(self) -> QuerySet:
         """Returns a QuerySet of all Product objects that are available."""
@@ -108,18 +96,10 @@ class ProductProxy(Product):
     """
     A proxy model that provides a custom manager for the Product model.
 
-    This proxy model inherits from the Product model and overrides the default manager
-    with a custom manager that provides a new method, get_queryset, that returns a QuerySet
-    of all Product objects that are available. This is achieved by filtering the results of the
-    default manager's get_queryset method using the available field.
-
-    This proxy model can be used to customize the default behavior of the Product model
-    without modifying the original model class.
-
     Attributes:
         objects (ProductManager): The custom manager for the ProductProxy model.
     """
-    objects = ProductManager.as_manager()
+    objects = ProductManager()
     
     class Meta:
         proxy = True
