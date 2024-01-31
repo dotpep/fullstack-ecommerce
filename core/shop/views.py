@@ -23,3 +23,7 @@ def category_list(request: HttpRequest, slug: SlugField):
     products = ProductProxy.objects.select_related('category').filter(category=category)
     context = {"category": category, "products": products}
     return render(request, 'shop/category_list.html', context)
+
+
+def search_products():
+    pass

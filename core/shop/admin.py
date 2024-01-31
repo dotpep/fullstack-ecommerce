@@ -25,12 +25,12 @@ class ProductAdmin(admin.ModelAdmin):
     """
     Product Model Admin
     """
-    list_display = ('title', 'brand', 'slug', 'price', 'available', 'created_at', 'updated_at')
+    list_display = ('title', 'brand', 'price', 'slug', 'available', 'created_at', 'updated_at')
     list_filter = ('available', 'created_at', 'updated_at')
     ordering = ('title',)
 
     def  get_prepopulated_fields(self, request: HttpRequest, obj=None) -> dict:
         """Returns a dictionary of fields to pre-populate from the request."""
         return {
-            'slug': ('title'),
+            'slug': ('title',),
         }
