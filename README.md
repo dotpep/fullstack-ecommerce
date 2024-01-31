@@ -34,6 +34,7 @@ Front-end:
 - JavaScript
 - Ajax
 - HTML, CSS
+- Bootstrap and Font Awesome
 Third party API services:
 - Stripe
 
