@@ -52,7 +52,7 @@ class ProductDetailViewTest(TestCase):
         self.assertContains(response, product)
 
 
-class ProductViewTest(TestCase):
+class CategoryListViewTest(TestCase):
     def setUp(self):
         small_gif = (
             b'\x47\x49\x46\x38\x39\x61\x01\x00\x01\x00\x00\x00\x00\x21\xf9\x04'

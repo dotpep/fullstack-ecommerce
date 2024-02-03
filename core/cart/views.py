@@ -11,7 +11,7 @@ from django.http import HttpRequest
 def cart_view(request: HttpRequest):
     cart = Cart(request)
     context = {'cart': cart}
-    return render(request, 'cart/cart-view.html', context)
+    return render(request, 'cart/cart_view.html', context)
 
 
 def cart_add(request: HttpRequest):
