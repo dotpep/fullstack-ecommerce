@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
+    # Third party libraries
+    'mathfilters',
+    
     # Apps
     'shop.apps.ShopConfig',
     'cart.apps.CartConfig',

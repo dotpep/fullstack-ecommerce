@@ -9,7 +9,9 @@ from django.http import HttpRequest
 
 
 def cart_view(request: HttpRequest):
-    return render(request, 'cart/cart-view.html')
+    cart = Cart(request)
+    context = {'cart': cart}
+    return render(request, 'cart/cart-view.html', context)
 
 def cart_add(request: HttpRequest):
     cart = Cart(request)

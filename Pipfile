@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 django = "*"
 pillow = "*"
+django-mathfilters = "*"
 
 [dev-packages]
 

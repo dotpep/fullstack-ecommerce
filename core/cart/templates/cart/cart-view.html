@@ -1,6 +1,7 @@
-{% include "base.html" %}
+{% extends 'base.html' %}
 
 {% load static %}
+{% load mathfilters %}
 
 {% block content %}
 
@@ -9,15 +10,18 @@
   <div class="container">
     <h1 class="h5">Shopping cart</h1>
     <hr />
-    <br />
+    
+    {% for item in cart %}
+    {% with product=item.product %}
 
+    <br />
     <div class="row mb-4 border product-item">
       <div class="col-md-3 col-lg-2 order-md-first bg-light">
         <img
           class="img-fluid mx-auto d-block"
           width="200px"
           alt="Responsive image"
-          src="{{product.full_image_url}}"
+          src="{{product.image.url}}"
         />
       </div>
 
@@ -26,7 +30,7 @@
           href="{{product.get_absolute_url}}"
           class="text-info text-decoration-none"
         >
-          <h1 class="h5 pt-2">title</h1>
+          <h1 class="h5 pt-2">{{product.title}}</h1>
         </a>
 
         <div class="border">
@@ -34,7 +38,7 @@
             <div class="row p-3">
               <div class="col-6">Product</div>
               <div class="col-6 text-end">
-                <span class="h6 fw-bold">$ 99</span>
+                <span class="h6 fw-bold">$ {{ product.price | mul:item.qty }}</span>
               </div>
             </div>
           </div>
@@ -46,7 +50,7 @@
 
                 &nbsp;
                 <select id="select">
-                  <option selected></option>
+                  <option selected>{{ item.qty }}</option>
                   <option value="">1</option>
                   <option value="">2</option>
                   <option value="">3</option>
@@ -77,12 +81,15 @@
         </div>
       </div>
     </div>
+    
+    {% endwith %}
+    {% endfor %}
 
     <div class="col-12 text-end">
       <div class="h6 fw-bold">
         Total: $
         <div id="total" class="d-inline-flex">
-
+            {{ cart.get_total_price }}
         </div>
       </div>
         <button
