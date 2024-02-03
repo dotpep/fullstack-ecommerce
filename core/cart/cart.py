@@ -43,6 +43,23 @@ class Cart():
         self.cart[product_id]['qty'] = quantity
         self.session.modified = True
     
+    def delete(self, product: ProductProxy):
+        product_id = str(product)
+        if product_id in self.cart:
+            del self.cart[product_id]
+            self.session.modified = True
+    
+    def clear(self):
+        self.cart = {}
+        self.session['session_key'] = self.cart
+        self.session.modified = True
+    
+    def update(self, product: ProductProxy, new_quantity):
+        product_id = str(product)
+        if product_id in self.cart:
+            self.cart[product_id]['qty'] = new_quantity
+            self.session.modified = True
+    
     def get_total_price(self):
         return sum(
             Decimal(item['price']) * item['qty'] for item in self.cart.values()

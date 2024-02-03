@@ -13,6 +13,7 @@ def cart_view(request: HttpRequest):
     context = {'cart': cart}
     return render(request, 'cart/cart-view.html', context)
 
+
 def cart_add(request: HttpRequest):
     cart = Cart(request)
     
@@ -26,11 +27,46 @@ def cart_add(request: HttpRequest):
         
         cart_qty = cart.__len__()
         
-        return JsonResponse({'qty': cart_qty, "product": product.title})
-        
+        response = JsonResponse({'qty': cart_qty, "product": product.title})
+        return response
+
 
 def cart_delete(request: HttpRequest):
-    pass
+    cart = Cart(request)
+    
+    if request.POST.get('action') == 'post':
+        product_id = int(request.POST.get('product_id'))
+        
+        cart.delete(product=product_id)
+        
+        cart_qty = cart.__len__()
+        cart_total = cart.get_total_price()
+        
+        response = JsonResponse({'qty': cart_qty, 'total': cart_total})
+        return response
+
+
+def cart_clear(request: HttpRequest):
+    cart = Cart(request)
+    
+    if request.method == 'POST':
+        cart.clear()
+        
+        response = JsonResponse({'status': 'success'})
+        return response
+
 
 def cart_update(request: HttpRequest):
-    pass
+    cart = Cart(request)
+    
+    if request.POST.get('action') == 'post':
+        product_id = int(request.POST.get('product_id'))
+        product_qty = int(request.POST.get('product_qty'))
+        
+        cart.update(product=product_id, new_quantity=product_qty)
+        
+        cart_qty = cart.__len__()
+        cart_total = cart.get_total_price()
+        
+        response = JsonResponse({'qty': cart_qty, 'total': cart_total})
+        return response

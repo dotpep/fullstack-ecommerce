@@ -68,7 +68,7 @@
         e.preventDefault();
         $.ajax({
             type: 'POST',
-            url: '{% url "cart:add_to_cart" %}',
+            url: '{% url "cart:add-to-cart" %}',
             data: {
                 product_id: $('#add-button').val(),
                 product_qty: $('#select option:selected').text(),
@@ -77,11 +77,18 @@
             },
             success: function(response){
                 document.getElementById('lblCartCount').text = response.qty
+                const add_button = document.getElementById('add-button')
+                add_button.disabled = true
+                add_button.innerText = "Added to cart"
+                add_button.className = "btn btn-success btn-sm"
+
+                // FIXME: when success added to cart lblCartCount is not updated untill page reload
+                //location.reload()
             },
             error: function(error){
                 console.log(error)
             }
         })
-    })
+    });
 </script>
 {% endblock %}

@@ -49,7 +49,7 @@
                 <label for="select">Qty</label>
 
                 &nbsp;
-                <select id="select">
+                <select id="select{{product.id}}">
                   <option selected>{{ item.qty }}</option>
                   <option value="">1</option>
                   <option value="">2</option>
@@ -61,7 +61,7 @@
 
                 <button
                   type="button"
-                  data-index=""
+                  data-index="{{ product.id }}"
                   class="btn btn-primary btn-sm update-button"
                 >
                   Update
@@ -71,10 +71,11 @@
                 <button
                   type="button"
                   class="btn btn-danger btn-sm delete-button"
-                  data-index=""
+                  data-index="{{ product.id }}"
                 >
                   Delete
                 </button>
+
               </div> 
             </div>
           </div>
@@ -94,6 +95,14 @@
       </div>
         <button
             type="button"
+            class="btn btn-danger btn-md clear-button mt-4"
+            id="clear-cart-button"
+        >
+            <a class="nav-link text-decoration-none" href="#">Clear Cart</a>
+        </button>
+
+        <button
+            type="button"
             class="btn btn-success btn-md text-bg-light mt-4"
             >
             <!-- TODO: Implement payment here -->
@@ -107,7 +116,72 @@
 </main>
 
 <script>
-// TODO: Implement jquery ajax query here
+    $(document).on('click', '.delete-button', function(e){
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: '{% url "cart:delete-from-cart" %}',
+            data: {
+                product_id: $(this).data('index'),
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                action: 'post'
+            },
+            success: function(response){
+                document.getElementById('lblCartCount').textContent = response.qty
+                document.getElementById('total').textContent = response.total
+
+                location.reload()
+            },
+            error: function(error, status){
+                console.log(error)
+            }
+        })
+    });
+
+    $(document).on('click', '.clear-button', function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: '{% url "cart:clear-cart" %}',
+            data: {
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+            },
+            success: function (response) {
+                // Handle success, for example, remove elements from the page
+                $('.product-item').remove();
+                $('#total').text('$0');
+            },
+            error: function (error, status) {
+                console.log(error)
+            }
+        });
+    });
+
+    $(document).on('click', '.update-button', function(e){
+        e.preventDefault();
+
+        var product_id = $(this).data('index')
+
+        $.ajax({
+            type: 'POST',
+            url: '{% url "cart:update-cart" %}',
+            data: {
+                product_id: $(this).data('index'),
+                product_qty: $('#select'+product_id+ ' option:selected').text(),
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                action: 'post'
+            },
+            success: function(response){
+                document.getElementById('lblCartCount').textContent = response.qty
+                document.getElementById('total').textContent = response.total
+
+                location.reload()
+            },
+            error: function(error, status){
+                console.log(error)
+            }
+        })
+    });
 </script>
 
 {% endblock %}
