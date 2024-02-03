@@ -40,10 +40,14 @@ INSTALLED_APPS = [
     
     # Third party libraries
     'mathfilters',
+    'crispy_forms',
+    "crispy_bootstrap5",
+    'django_email_verification',
     
     # Apps
     'shop.apps.ShopConfig',
     'cart.apps.CartConfig',
+    'account.apps.AccountConfig',
 ]
 
 MIDDLEWARE = [
@@ -91,6 +95,8 @@ DATABASES = {
     }
 }
 
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -114,12 +120,10 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
+# Project Inside Settings
 LANGUAGE_CODE = 'ru-ru'
-
 TIME_ZONE = 'Europe/Moscow'
-
 USE_I18N = True
-
 USE_TZ = True
 
 
@@ -130,7 +134,7 @@ USE_TZ = True
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
-
+# Static Files 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR /'static'
 
@@ -138,4 +142,7 @@ MEDIA_URL ='media/'
 MEDIA_ROOT = BASE_DIR /'media'
 
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Crispy Forms
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"

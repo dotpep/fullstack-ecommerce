@@ -7,6 +7,9 @@ name = "pypi"
 django = "*"
 pillow = "*"
 django-mathfilters = "*"
+django-crispy-forms = "*"
+crispy-bootstrap5 = "*"
+django-email-verification = "*"
 
 [dev-packages]
 
