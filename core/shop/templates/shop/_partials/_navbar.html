@@ -85,12 +85,18 @@
             </ul>
 
 
-            <!-- TODO: Implement cart view and account login - cart:cart-view and account:login/register/logout -->
-            {% comment %}<ul class="navbar-nav ms-auto">
-                
-                <!-- Code here -->
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link mx-2 text-uppercase" href="{% url 'cart:cart-view' %}"> <i
+                            class="fa fa-shopping-cart" aria-hidden="true"> </i> Cart
+                        <span id="lblCartCount" class="badge badge-warning ">
+                            
+                        </span>
+                    </a>
+                </li>
 
-            </ul>{% endcomment %}
+                <!-- TODO: Implement account login - account:login/register/logout -->
+            </ul>
         </div>
     </div>
 </nav>

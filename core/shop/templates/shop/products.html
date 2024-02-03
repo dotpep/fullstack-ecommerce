@@ -5,6 +5,7 @@
 {% comment %}{% load thumbnail %}{% endcomment %}
 
 <!-- Introduction section -->
+{% comment %}
 {% if not request.user.is_authenticated %}
 <section class="py-4 text-center container">
   <div class="row py-lg-5">
@@ -18,6 +19,7 @@
   </div>
 </section>
 {% endif %}
+{% endcomment %}
 
 <!-- All products section -->
 <section class="album py-5 bg-light">

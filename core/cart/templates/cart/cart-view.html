@@ -1,0 +1,104 @@
+{% include "base.html" %} 
+{% load static %} 
+{% block content %}
+
+<!-- TODO: Implement product loading logic here -->
+<main class="pt-5">
+  <div class="container">
+    <h1 class="h5">Shopping cart</h1>
+    <hr />
+    <br />
+
+    <div class="row mb-4 border product-item">
+      <div class="col-md-3 col-lg-2 order-md-first bg-light">
+        <img
+          class="img-fluid mx-auto d-block"
+          width="200px"
+          alt="Responsive image"
+          src="{{product.full_image_url}}"
+        />
+      </div>
+
+      <div class="col-md-9 col-lg-10 ps-md-3 ps-lg-10">
+        <a
+          href="{{product.get_absolute_url}}"
+          class="text-info text-decoration-none"
+        >
+          <h1 class="h5 pt-2">title</h1>
+        </a>
+
+        <div class="border">
+          <div class="col border-bottom">
+            <div class="row p-3">
+              <div class="col-6">Product</div>
+              <div class="col-6 text-end">
+                <span class="h6 fw-bold">$ 99</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="row p-3">
+              <div class="col-12">
+                <label for="select">Qty</label>
+
+                &nbsp;
+                <select id="select">
+                  <option selected></option>
+                  <option value="">1</option>
+                  <option value="">2</option>
+                  <option value="">3</option>
+                  <option value="">4</option>
+                </select>
+                <br />
+                <br />
+
+                <button
+                  type="button"
+                  data-index=""
+                  class="btn btn-primary btn-sm update-button"
+                >
+                  Update
+                </button>
+
+                &nbsp;
+                <button
+                  type="button"
+                  class="btn btn-danger btn-sm delete-button"
+                  data-index=""
+                >
+                  Delete
+                </button>
+              </div> 
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 text-end">
+      <div class="h6 fw-bold">
+        Total: $
+        <div id="total" class="d-inline-flex">
+
+        </div>
+      </div>
+        <button
+            type="button"
+            class="btn btn-success btn-md text-bg-light mt-4"
+            >
+            <!-- TODO: Implement payment here -->
+            <a class="nav-link text-decoration-none" href="">Checkout</a>
+        </button>
+    </div>
+  </div>
+
+  <br />
+  <br />
+</main>
+
+<script>
+// TODO: Implement jquery ajax query here
+</script>
+
+{% endblock %}
