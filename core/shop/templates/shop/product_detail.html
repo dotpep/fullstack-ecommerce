@@ -64,6 +64,24 @@
 
 <!-- TODO: add to cart functionality POST cart:add-to-cart-->
 <script>
-    
+    $(document).on('click', '#add-button', function(e){
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: '{% url "cart:add_to_cart" %}',
+            data: {
+                product_id: $('#add-button').val(),
+                product_qty: $('#select option:selected').text(),
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                action: 'post'
+            },
+            success: function(response){
+                document.getElementById('lblCartCount').text = response.qty
+            },
+            error: function(error){
+                console.log(error)
+            }
+        })
+    })
 </script>
 {% endblock %}
