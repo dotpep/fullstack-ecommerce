@@ -10,6 +10,7 @@ django-mathfilters = "*"
 django-crispy-forms = "*"
 crispy-bootstrap5 = "*"
 django-email-verification = "*"
+django-environ = "*"
 
 [dev-packages]
 

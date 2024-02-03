@@ -26,11 +26,7 @@ def register_user(request):
             
             send_email(user)
             
-            return redirect('account:login')
+            return redirect('/account/email-verification-sent/')
     else:
         form = UserCreateForm()
     return render(request, 'account/registration/register.html', {'form': form}) 
-
-
-def email_verification(request):
-    pass
