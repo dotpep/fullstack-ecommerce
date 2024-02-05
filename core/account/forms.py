@@ -28,3 +28,23 @@ class UserCreateForm(UserCreationForm):
             raise forms.ValidationError("Email is already in use/exists or too long")
         
         return email
+
+
+class UserLoginForm(AuthenticationForm):
+    username = forms.CharField(widget=TextInput(attrs={'class': 'form-control'}))
+    password = forms.CharField(widget=PasswordInput(attrs={'class': 'form-control'}))
+
+
+class UserUpdateForm(forms.ModelForm):
+    email = forms.EmailField(required=True)
+
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        super(UserUpdateForm, self).__init__(*args, **kwargs)
+        
+        self.fields['email'].label = 'Your Email Adress'
+        self.fields['email'].required = True
+
+    class Meta:
+        model = User
+        fields = ['username', 'email']
+        exclude = ['password1', 'password2']

@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
 {% load static %}
 
@@ -15,24 +15,30 @@
     .btn-register{
         transition: 0.5s;
     }
-    
+
     .btn-register:hover {
-        background-color: forestgreen;
+        background-color: red;
         transform: scale(1.1);
     }
 </style>
 
 
 <br>
-<div class="container bg-white shadow-md p-5 form-layout">
 
-    <h3>Create new Account</h3>
+<div class="container bg-white shadow-md p-5 form-layout">
+    
+    <h3>Are you sure you want to delete your account?</h3>
+    
     <br>
+
     <form method="post">
         {% csrf_token %}
         {{ form|crispy }}
-        <input type="submit" value="Register" class="btn btn-secondary w-100 btn-block p-2 btn-register">
+        <button type="submit" class="btn btn-secondary w-100 btn-block p-2 btn-register">Delete account</button>
     </form>
+
 </div>
 
-{% endblock content %}
+<br>
+
+{% endblock %}

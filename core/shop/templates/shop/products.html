@@ -5,7 +5,6 @@
 {% comment %}{% load thumbnail %}{% endcomment %}
 
 <!-- Introduction section -->
-{% comment %}
 {% if not request.user.is_authenticated %}
 <section class="py-4 text-center container">
   <div class="row py-lg-5">
@@ -14,12 +13,13 @@
       <br />
       <p class="lead text-muted">Browse and make the best deal</p>
       <br />
-      <a href="#" class="btn btn-success my-2"> Create an account </a>
+      <a href="{% url 'account:register' %}" class="btn btn-success my-2"> Create an account </a>
+      <br />
+      <a href="{% url 'account:login' %}" class="btn btn-success my-2"> Login </a>
     </div>
   </div>
 </section>
 {% endif %}
-{% endcomment %}
 
 <!-- All products section -->
 <section class="album py-5 bg-light">

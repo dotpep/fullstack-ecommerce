@@ -4,11 +4,15 @@ from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.decorators import login_required
 from django_email_verification import send_email
 
-from .forms import UserCreateForm
+from .forms import UserCreateForm, UserLoginForm, UserUpdateForm
+
+from django.http import HttpRequest
+
 
 User = get_user_model()
 
-def register_user(request):
+# Register new user
+def register_user(request: HttpRequest):
     if request.method == 'POST':
         form = UserCreateForm(request.POST)
         if form.is_valid():
@@ -30,3 +34,66 @@ def register_user(request):
     else:
         form = UserCreateForm()
     return render(request, 'account/registration/register.html', {'form': form}) 
+
+
+def login_user(request: HttpRequest):
+    form = UserLoginForm()
+    
+    if request.user.is_authenticated:
+        return redirect('shop:products')
+    
+    if request.method == 'POST':
+        form = UserLoginForm(request.POST)
+        
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        
+        user = authenticate(request=request, username=username, password=password)
+
+        if user is not None:
+            login(request=request, user=user)
+            return redirect('account:dashboard')
+        else:
+            messages.info(request, "Username or Password is incorrect")
+            return redirect('account:login')
+
+    context = {'form': form}
+    return render(request, 'account/login/login.html', context)
+
+
+def logout_user(request: HttpRequest):
+    logout(request)
+    return redirect('shop:products')
+
+
+# Dashboard
+@login_required(login_url='account:login')
+def dashboard_user(request: HttpRequest):
+    return render(request, 'account/dashboard/dashboard.html')
+
+
+@login_required(login_url='account:login')
+def profile_user_management(request: HttpRequest):
+
+    if request.method == 'POST':
+        form = UserUpdateForm(request.POST, instance=request.user)
+
+        if form.is_valid():
+            form.save()
+            return redirect('account:dashboard')
+    else:
+        form = UserUpdateForm(instance=request.user)
+        
+    context = {'form': form}
+    return render(request, 'account/dashboard/profile_management.html', context)
+    
+
+
+@login_required(login_url='account:login')
+def delete_user(request: HttpRequest):
+    user = User.objects.filter(id=request.user.id)
+    if request.method == 'POST':
+        user.delete()
+        return redirect('shop:products')
+    
+    return render(request, 'account/dashboard/account_delete.html')
