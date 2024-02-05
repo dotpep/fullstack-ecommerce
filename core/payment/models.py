@@ -20,18 +20,20 @@ class ShippingAddress(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"ShippingAddress: {self.id}"
+        return f"ShippingAddress obj id: {self.id}, \
+            related: (User name - {self.user.username})"
 
 
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     shipping_address = models.ForeignKey(ShippingAddress, on_delete=models.CASCADE, blank=True, null=True)
-    amount = models.DecimalField(max_digits=9, decimal_places=2)
+    total_price = models.DecimalField(max_digits=9, decimal_places=2)
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
 
     def __str__(self):
-        return f"Order: {self.id}"
+        return f"Order id: {self.id}, \
+            related: (ShippingAddress id - {self.shipping_address.id}, User name - {self.user.username})"
 
 
 class OrderItem(models.Model):
@@ -42,4 +44,5 @@ class OrderItem(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"OrderItem: {self.id}"
+        return f"OrderItem id: {self.id}, \
+            related: (Order id - {self.order.id}, Product id - {self.product.id})"
