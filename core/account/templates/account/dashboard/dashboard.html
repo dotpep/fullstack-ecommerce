@@ -12,24 +12,31 @@
         <hr>
 
         <h6>Personal information</h6>
-
-        <a href="{% url 'account:logout' %}">
-        <button class="btn btn-primary">
-            Logout
+        
+        <br />
+        <a href="{% url 'shop:products' %}">
+            <button class="btn btn-success">
+                Go to Home Page
+            </button>
+        </a>
+        
+        <a href="{% url 'account:profile-management' %}">
+            <button class="btn btn-primary">
+                Profile-management
             </button>
         </a>
 
-        <a href="{% url 'account:profile-management' %}">
-            <button class="btn btn-success">
-                Profile-management
-                </button>
-            </a>
-        
-            <a href="{% url 'account:delete-user' %}">
-                <button class="btn btn-warning">
-                    Delete Account
-                    </button>
-                </a>
+        <a href="{% url 'account:logout' %}">
+            <button class="btn btn-secondary">
+                Logout
+            </button>
+        </a>
+
+        <a href="{% url 'account:delete-user' %}">
+            <button class="btn btn-danger">
+                Delete Account
+            </button>
+        </a>
 
     </div>
 {% endblock %}

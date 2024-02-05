@@ -6,6 +6,7 @@ from django_email_verification import send_email
 
 from .forms import UserCreateForm, UserLoginForm, UserUpdateForm
 
+# type hinting
 from django.http import HttpRequest
 
 
