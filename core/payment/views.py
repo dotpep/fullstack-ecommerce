@@ -31,19 +31,23 @@ def shipping_view(request: HttpRequest):
             shipping_address.save()
             return redirect('account:dashboard')
     context = {'form': form}
-    return render(request, 'payment/shipping/shipping.html', context)
+    return render(request, 'shipping/shipping.html', context)
 
 def checkout_view(request: HttpRequest):
-    pass
-
+    if request.user.is_authenticated:
+        shipping_address = get_object_or_404(ShippingAddress, user=request.user)
+        if shipping_address:
+            context = {'shipping_address': shipping_address}
+            return render(request, 'payment/checkout.html', context)
+    return render(request, 'payment/checkout.html')
 
 def complete_order(request: HttpRequest):
     pass
 
 
 def payment_success(request: HttpRequest):
-    pass
+    return render(request, 'payment/payment_success.html')
 
 
 def payment_fail(request: HttpRequest):
-    pass
+    return render(request, 'payment/payment_fail.html')

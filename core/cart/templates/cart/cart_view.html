@@ -5,7 +5,6 @@
 
 {% block content %}
 
-<!-- TODO: Implement product loading logic here -->
 <main class="pt-5">
   <div class="container">
     <h1 class="h5">Shopping cart</h1>
@@ -105,8 +104,7 @@
             type="button"
             class="btn btn-success btn-md text-bg-light mt-4"
             >
-            <!-- TODO: Implement payment here -->
-            <a class="nav-link text-decoration-none" href="">Checkout</a>
+            <a class="nav-link text-decoration-none" href="{% url 'payment:checkout' %}">Checkout</a>
         </button>
     </div>
   </div>

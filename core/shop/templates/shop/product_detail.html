@@ -62,7 +62,6 @@
 
 </div>
 
-<!-- TODO: add to cart functionality POST cart:add-to-cart-->
 <script>
     $(document).on('click', '#add-button', function(e){
         e.preventDefault();
@@ -82,7 +81,7 @@
                 add_button.innerText = "Added to cart"
                 add_button.className = "btn btn-success btn-sm"
 
-                // FIXME: when success added to cart lblCartCount is not updated untill page reload
+                // FIXME: when success added to cart lblCartCount is not updated automaticaly untill page reload
                 //location.reload()
             },
             error: function(error){
