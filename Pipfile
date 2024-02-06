@@ -11,6 +11,7 @@ django-crispy-forms = "*"
 crispy-bootstrap5 = "*"
 django-email-verification = "*"
 django-environ = "*"
+stripe = "*"
 
 [dev-packages]
 
