@@ -12,6 +12,11 @@ from django.http import HttpRequest
 
 User = get_user_model()
 
+# FIXME: fix and refactor account app, implement additional functionality
+
+# NOTE: accounts templates stored in (that you can use if you name your app accounts): django\contrib\admin\templates\registration
+ # but I am make custom template for password resetting
+
 # Register new user
 def register_user(request: HttpRequest):
     if request.method == 'POST':
