@@ -33,7 +33,7 @@ class Order(models.Model):
 
     def __str__(self):
         return f"Order id: {self.id}, \
-            related: (ShippingAddress id - {self.shipping_address.id}, User name - {self.user.username})"
+            related: (ShippingAddress of User - {self.user.username})"
 
 
 class OrderItem(models.Model):
@@ -45,4 +45,4 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return f"OrderItem id: {self.id}, \
-            related: (Order id - {self.order.id}, Product id - {self.product.id})"
+            related: (Order id - {self.order.id}, Product title - {self.product.title})"

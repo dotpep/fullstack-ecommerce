@@ -33,6 +33,14 @@
         {{ form|crispy }}
         <input type="submit" value="Register" class="btn btn-secondary w-100 btn-block p-2 btn-register">
     </form>
+    <br>
+    <br>
+
+    <div class="text-center">
+        <a href="{% url 'account:login' %}"><strong>Already have an account?</strong></a>
+    </div>
+    <br>
+    
 </div>
 
 {% endblock content %}

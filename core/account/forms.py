@@ -24,8 +24,9 @@ class UserCreateForm(UserCreationForm):
 
     def clean_email(self):
         email = self.cleaned_data['email'].lower()
-        if User.objects.filter(email=email).exists() and len(email) > 255:
-            raise forms.ValidationError("Email is already in use/exists or too long")
+        
+        if User.objects.filter(email=email).exclude(id=self.instance.id).exists() or len(email) > 254:
+            raise forms.ValidationError("Email is already exists or too long")
         
         return email
 
@@ -43,6 +44,14 @@ class UserUpdateForm(forms.ModelForm):
         
         self.fields['email'].label = 'Your Email Adress'
         self.fields['email'].required = True
+        
+    def clean_email(self):
+        email = self.cleaned_data['email'].lower()
+        
+        if User.objects.filter(email=email).exclude(id=self.instance.id).exists() or len(email) > 254:
+            raise forms.ValidationError("Email is already in use or too long")
+        
+        return email
 
     class Meta:
         model = User

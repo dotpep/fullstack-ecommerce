@@ -29,16 +29,19 @@ def shipping_view(request: HttpRequest):
             shipping_address = form.save(commit=False)
             shipping_address.user = request.user
             shipping_address.save()
-            return redirect('account:dashboard')
+            #return redirect('account:dashboard')
+            return redirect('payment:checkout')
     context = {'form': form}
     return render(request, 'shipping/shipping.html', context)
 
 def checkout_view(request: HttpRequest):
     if request.user.is_authenticated:
-        shipping_address = get_object_or_404(ShippingAddress, user=request.user)
-        if shipping_address:
+        try:
+            shipping_address = ShippingAddress.objects.get(user=request.user)
             context = {'shipping_address': shipping_address}
             return render(request, 'payment/checkout.html', context)
+        except ShippingAddress.DoesNotExist:
+            return redirect('payment:shipping')
     return render(request, 'payment/checkout.html')
 
 def complete_order(request: HttpRequest):

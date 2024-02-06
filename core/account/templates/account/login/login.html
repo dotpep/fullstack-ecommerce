@@ -26,13 +26,46 @@
 <br>
 
 <div class="container bg-white shadow-md p-5 form-layout">
-    <h3>Authentication</h3>
+    <h3>Login Authentication</h3>
     <br>
     <form method="post">
         {% csrf_token %}
         {{ form|crispy }}
         <button type="submit" class="btn btn-secondary w-100 btn-block p-2 btn-register">Login</button>
     </form>
+
+    <!--Reset Password-->
+    {% if form.errors %}
+    <div class="alert alert-danger" role="alert">
+        {% for field in form %}
+            {% if field.errors %}
+                {{ field.errors }}
+            {% endif %}
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li class="{{ message.tags }}">
+                {{ message|safe }}
+            </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <br>
+    <br>
+
+    <div class="text-center">
+        <a href="{% url 'account:register' %}"><strong>Dont have an account?</strong></a>
+    </div>
+    <br>
+
+    <div class="text-center">
+        <a href="{% url 'account:password-reset' %}"><strong>Forgot password?</strong></a>
+    </div>
+
 </div>
 
 <br>
