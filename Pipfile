@@ -13,6 +13,7 @@ django-email-verification = "*"
 django-environ = "*"
 stripe = "*"
 yookassa = "*"
+django-google-fonts = "*"
 
 [dev-packages]
 

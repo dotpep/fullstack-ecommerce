@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "94e72947297f4f2e6a5006377e69ed63a99138275b72fa0c247ebf7063998b1f"
+            "sha256": "4cc971973202803e943b0371fccc76d8d1cc24d708dc42f505fe3178dcfeeeb9"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -196,6 +196,15 @@
             "markers": "python_version >= '3.6' and python_version < '4'",
             "version": "==0.11.2"
         },
+        "django-google-fonts": {
+            "hashes": [
+                "sha256:0439c4d89919970b141258bd3be0a085cc538f4e9c53e54f40eb2953ec2e5d30",
+                "sha256:f8f0b943107932d5fbb66da26f2088e0c6d89cde8b66ed66c3f58a6f40d54994"
+            ],
+            "index": "pypi",
+            "markers": "python_version >= '3.7'",
+            "version": "==0.0.3"
+        },
         "django-mathfilters": {
             "hashes": [
                 "sha256:64200a21bb249fbf27be601d4bbb788779e09c6e063170c097cd82c4d18ebb83",
@@ -315,7 +324,7 @@
                 "sha256:58cd2187c01e70e6e26505bca751777aa9f2ee0b7f4300988b709f44e013003f",
                 "sha256:942c5a758f98d790eaed1a29cb6eefc7ffb0d1cf7af05c3d2791656dbd6ad1e1"
             ],
-            "markers": "python_version >= '3.0'",
+            "markers": "python_version >= '3.7'",
             "version": "==2.31.0"
         },
         "sqlparse": {
@@ -334,6 +343,14 @@
             "index": "pypi",
             "markers": "python_version >= '3.6'",
             "version": "==8.1.0"
+        },
+        "tinycss2": {
+            "hashes": [
+                "sha256:2b80a96d41e7c3914b8cda8bc7f705a4d9c49275616e886103dd839dfc847847",
+                "sha256:8cff3a8f066c2ec677c06dbc7b45619804a6938478d9d73c284b29d14ecb0627"
+            ],
+            "markers": "python_version >= '3.7'",
+            "version": "==1.2.1"
         },
         "typing-extensions": {
             "hashes": [
@@ -366,6 +383,13 @@
             ],
             "markers": "python_version >= '3.8'",
             "version": "==0.22.0"
+        },
+        "webencodings": {
+            "hashes": [
+                "sha256:a0af1213f3c2226497a97e2b3aa01a7e4bee4f403f95be16fc9acd2947514a78",
+                "sha256:b36a1c245f2d304965eb4e0a82848379241dc04b865afcc4aab16748587e1923"
+            ],
+            "version": "==0.5.1"
         },
         "wrapt": {
             "hashes": [
