@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.urls import reverse
 from decimal import Decimal
+import uuid
 
 from cart.cart import Cart
 
@@ -11,15 +12,21 @@ from .models import Order, OrderItem, ShippingAddress
 
 from django.conf import settings
 
-# stripe
+# payment api
 import stripe
-
-stripe.api_key = settings.STRIPE_SECRET_KEY
-stripe.api_version = settings.STRIPE_API_VERSION
-
+from yookassa import Payment, Configuration
 
 # type hinting
 from django.http import HttpRequest
+
+
+# Stripe configuration
+stripe.api_key = settings.STRIPE_SECRET_KEY
+stripe.api_version = settings.STRIPE_API_VERSION
+
+# Yookassa configuration
+Configuration.account_id = settings.YOOKASSA_SHOP_ID
+Configuration.secret_key = settings.YOOKASSA_SECRET_KEY
 
 
 # NOTE: I am using (login_url='account:login') because I am named it account app not default django login names that is accounts 
@@ -70,8 +77,11 @@ def complete_order(request: HttpRequest):
         total_price = cart.get_total_price()
         
         # FIXME: proccessed only one product instead 2... choosen in cart in payment method with stripe 
+        # TODO: refactor this match case payment type stripe and yookassa to modular and dry
+
         match payment_type:
-            case 'stripe-payment':
+            # Stripe
+            case "stripe-payment":
                 shipping_address, _ = ShippingAddress.objects.get_or_create(
                     user=request.user,
                     defaults={
@@ -133,6 +143,78 @@ def complete_order(request: HttpRequest):
                             price=item['price'],
                             quantity=item['qty'],
                         )
+                        
+            # Yookassa
+            case "yookassa-payment":
+                idempotence_key = uuid.uuid4()
+                
+                currency = 'RUB'
+                description = 'Товар в корзине'
+                payment = Payment.create({
+                    "amount": {
+                        "value": str(total_price * 93),
+                        "currency": currency,
+                    },
+                    "confirmation": {
+                        "type": "redirect",
+                        "return_url": request.build_absolute_uri(reverse('payment:payment-success')),
+                    },
+                    "capture": True,
+                    "test": True,
+                    "description": description,
+                }, idempotence_key)
+                
+                confirmation_url = payment.confirmation.confirmation_url
+                
+                shipping_address, _ = ShippingAddress.objects.get_or_create(
+                    user=request.user,
+                    defaults={
+                        'full_name': name,
+                        'email': email,
+                        'street_address': street_address,
+                        'apartment_address': apartment_address,
+                        'country': country,
+                        'city': city,
+                        'zip_code': zip_code,
+                    }
+                )
+                
+                if request.user.is_authenticated:
+                    order = Order.objects.create(
+                        user=request.user,
+                        shipping_address=shipping_address,
+                        total_price=total_price,
+                    )
+                    
+                    for item in cart:
+                        OrderItem.objects.create(
+                            order=order,
+                            product=item['product'],
+                            price=item['price'],
+                            quantity=item['qty'],
+                            user=request.user,
+                        )
+                    
+                    return redirect(confirmation_url)
+                
+                else:
+                    order = Order.objects.create(
+                        shipping_address=shipping_address,
+                        total_price=total_price,
+                    )
+                    
+                    for item in cart:
+                        OrderItem.objects.create(
+                            order=order,
+                            product=item['product'],
+                            price=item['price'],
+                            quantity=item['qty'],
+                        )
+
+            case _ :
+                return JsonResponse({'error': 'Unsupported payment type'})
+
+    return JsonResponse({'error': 'Invalid request'})
 
 
 def payment_success(request: HttpRequest):

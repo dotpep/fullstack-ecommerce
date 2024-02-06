@@ -12,6 +12,7 @@ crispy-bootstrap5 = "*"
 django-email-verification = "*"
 django-environ = "*"
 stripe = "*"
+yookassa = "*"
 
 [dev-packages]
 
