@@ -6,44 +6,20 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <!-- Head imports -->
     {% include 'shop/_partials/_head_imports.html' %}
+
     <!-- Title -->
     <title>{% block title %} Home {% endblock %}</title>
 
-    <style>
-      .form-layout {
-        border-radius: 20px;
-        width: 500px;
-      }
-
-
-      .badge {
-          padding-left: 9px;
-          padding-right: 9px;
-          -webkit-border-radius: 9px;
-          -moz-border-radius: 9px;
-          border-radius: 9px;
-      }
-
-      .label-warning[href],
-      .badge-warning[href] {
-          background-color: #c67605;
-      }
-      #lblCartCount {
-          font-size: 12px;
-          background: #3c9700;
-          color: #fff;
-          padding: 0 5px;
-          vertical-align: top;
-          margin-left: -2px;
-      }
-  </style>
-
     <!--Custom CSS -->
     <link rel="stylesheet" href="{% static 'fonts/montserrat:wght@300,400,500.css' %}"/>
+    <link rel="stylesheet" href="{% static 'shop/css/base.css' %}"/>
+
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/png" href="{% static 'shop/images/favicon.ico' %}" >
+    {% comment %}<link rel="shortcut icon" type="image/png" href="{% static 'shop/images/favicon.ico' %}" >{% endcomment %}
+    <link rel="shortcut icon" type="image/png" href="{% static 'shop/images/favicon-32x32.png' %}" >
     {% block head %} {% endblock head %}
   </head>
 
@@ -53,15 +29,16 @@
 
     <!-- Messages -->
     {% include 'shop/_partials/_messages.html' %}
+
     <main>
       <!-- Content -->
       {% block content %} {% endblock %}
     </main>
+
     <!-- Footer -->
     {% include 'shop/_partials/_footer.html' %}
   </body>
 
   <!-- Script -->
   <script src="{% static 'shop/js/base.js' %}" ></script>
-  <script src="https://unpkg.com/htmx.org@1.9.9" integrity="sha384-QFjmbokDn2DjBjq+fM+8LUIVrAgqcNW2s0PjAxHETgRn9l4fvX31ZxDxvwQnyMOX" crossorigin="anonymous"></script>
 </html>

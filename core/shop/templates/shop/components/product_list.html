@@ -4,7 +4,9 @@
       
 <div class="col">
   <div class="card shadow-sm">
-  <img class="img-fluid" alt="Responsive image" src="{{ product.image.url }}">
+  <a href="{{product.get_absolute_url}}">
+    <img class="img-fluid" alt="Responsive image" src="{{ product.image.url }}">
+  </a>
     <div class="card-body">
       <p class="card-text">
         <a class="text-info text-decoration-none" href="{{product.get_absolute_url}}"> {{product.title|capfirst}} </a>
