@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     "crispy_bootstrap5",
     'django_email_verification',
     'django_google_fonts',
+    'django_celery_beat',
+    'django_celery_results',
     
     # Apps
     'shop.apps.ShopConfig',
@@ -193,8 +195,8 @@ EMAIL_MAIL_CALLBACK = email_verified_callback
 #EMAIL_PASSWORD_CALLBACK = password_change_callback
 
 # For Django Email Backend
-#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
@@ -218,3 +220,19 @@ YOOKASSA_SHOP_ID = env('YOOKASSA_SHOP_ID')
 # FIXME: django_google_fonts: Failed to get font: Montserrat:wght@300,400,500, got status code: 400
 GOOGLE_FONTS = ['Montserrat:wght@300,400,500', 'Roboto']
 GOOGLE_FONTS_DIR = BASE_DIR / 'static'
+
+
+# Celery
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'django-db'
+CELERY_RESULT_EXTENDED = True
+CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+
+# CELERY_BEAT_SCHEDULE = {
+#     "sample_task": {
+#         "task": "core.tasks.sample_task",
+#         "schedule": crontab(minute="*/1"),
+#     },
+# }
+

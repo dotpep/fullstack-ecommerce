@@ -11,6 +11,7 @@ from yookassa.domain.notification import WebhookNotificationEventType, WebhookNo
 from django.conf import settings
 
 from .models import Order
+from .tasks import send_order_confirmation_email
 
 # type hinting
 from django.http import HttpRequest
@@ -44,6 +45,7 @@ def stripe_webhook(request: HttpRequest):
             except Order.DoesNotExist:
                 return HttpResponse(status=404)
             
+            send_order_confirmation_email.delay(order_id)
             order = Order.objects.get(id=order_id)
             order.is_paid = True
             order.save()

@@ -14,6 +14,12 @@ django-environ = "*"
 stripe = "*"
 yookassa = "*"
 django-google-fonts = "*"
+celery = "*"
+redis = "*"
+django-celery-beat = "*"
+django-celery = "*"
+flower = "*"
+django-celery-results = "*"
 
 [dev-packages]
 

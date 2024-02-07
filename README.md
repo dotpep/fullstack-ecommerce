@@ -58,6 +58,57 @@ YOOKASSA_SECRET_KEY=actualyourdata
 YOOKASSA_SHOP_ID=actualyourdata
 ```
 
+---
+
+Connect Celery and Redis as broker (for payment successful email message background task) (I am using Windows and WSL for that) - run all separate.
+
+- run django server `python manage.py runserver`
+- run stripe webhook `stripe listen --forward-to localhost:8000/payment/stripe-webhook/` [Get started with the Stripe CLI](https://stripe.com/docs/stripe-cli) and [Use incoming webhooks to get real-time updates](https://stripe.com/docs/webhooks)
+
+---
+
+- install redis [For windows you need WSL](https://redis.io/docs/install/install-redis/install-redis-on-windows/) `sudo apt-get install redis`
+- run redis server with `redis-server` or `sudo service redis-server start` and you can check it by `redis-cli` and in redis cli `ping` you must receive PONG message
+
+---
+
+- run celery workers
+- install `pip install celery`
+- run `celery -A project worker -l info` or `celery -A project worker --loglevel=INFO` [Running the Celery worker server](https://docs.celeryq.dev/en/stable/getting-started/first-steps-with-celery.html#redis)
+- you can ran two or more celery workers by given different name using `-n` flag in `celery workers` command
+- `celery -A project worker -l info -n mysecondworker_name`
+
+---
+
+- run celery-beat
+- instead `celery -A project worker -l info` or `celery -A project worker --loglevel=INFO`
+- add `celery -A project worker -l info --beat` or `celery -A project worker --loglevel=INFO --beat`
+- or in Windows you can:
+- `python -m celery -A project beat --loglevel=info` (project is name of django application that is in my case i called project and you must be in `core` directory and see project folder that contains celery.py)
+
+---
+
+- run flower (for monitoring and managing Celery clusters) [celery flower python](https://flower.readthedocs.io/en/latest/index.html)
+- `celery -A project flower`
+- Flower by default works in port of 5555 to see flower celery cluster interface panel like django admin panel go to:
+- `http://127.0.0.1:5555/` or for task `http://127.0.0.1:5555/tasks`
+
+---
+
+You can Test celery in admin panel:
+
+- go to `http://127.0.0.1:8000/admin`
+- check this app section:
+- CELERY RESULTS
+- PERIODIC TASKS
+
+---
+
+Admin panel (superuser):
+
+- username: admin
+- password: admin
+
 ### Note
 
 - you can also delete db.sqlite3
