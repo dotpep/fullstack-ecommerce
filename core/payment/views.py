@@ -165,6 +165,7 @@ def complete_order(request: HttpRequest):
                 
                         
             # Yookassa
+            # FIXME: yookassa cannot change status of payment (is_paid)
             case "yookassa-payment":
                 idempotence_key = uuid.uuid4()
                 

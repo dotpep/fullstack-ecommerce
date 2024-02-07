@@ -1,7 +1,7 @@
 from django.urls import path
 
 from . import views
-from .webhooks import stripe_webhook
+from .webhooks import stripe_webhook, yookassa_webhook
 
 
 app_name = 'payment'
@@ -14,4 +14,5 @@ urlpatterns = [
     path('payment-fail/', views.payment_fail, name='payment-fail'),
     # Webhooks
     path('stripe-webhook/', stripe_webhook, name='stripe-webhook'),
+    path('webhook-yookassa/', yookassa_webhook, name='webhook-yookassa'),
 ]
