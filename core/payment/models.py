@@ -30,10 +30,11 @@ class Order(models.Model):
     total_price = models.DecimalField(max_digits=9, decimal_places=2)
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
+    is_paid = models.BooleanField(default=False)
 
     def __str__(self):
         return f"Order id: {self.id}, \
-            related: (ShippingAddress of User - {self.user.username})"
+            related: (ShippingAddress of User - {self.user.username}) (Status of payment - {self.is_paid})"
 
 
 class OrderItem(models.Model):
