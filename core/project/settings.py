@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 
 import environ
+from django.contrib import messages
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -60,6 +61,7 @@ INSTALLED_APPS = [
     'cart.apps.CartConfig',
     'account.apps.AccountConfig',
     'payment.apps.PaymentConfig',
+    'recommend.apps.RecommendConfig',
 ]
 
 MIDDLEWARE = [
@@ -158,6 +160,14 @@ STATICFILES_DIRS = [
 MEDIA_URL ='media/'
 MEDIA_ROOT = BASE_DIR /'media'
 
+# Django Message
+MESSAGE_TAGS = {
+    messages.DEBUG: 'alert-secondary',
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.ERROR: 'alert-danger',
+ }
 
 
 # Crispy Forms

@@ -138,6 +138,13 @@ WeasyPrint for generating pdf (for payment invoice - is paid or not paid) on Win
 - run django server and check if any errors of WeasyPrint accurs or not
 - unnecessary command to apply static files like css for WeasyPrint pdf templates `python manage.py collectstatic`
 
+---
+
+Faker for creating fake product
+
+- faker script that created fake products added to django base command (BaseCommand) path file: `management/command/fakeproducts.py`
+- and you can run it by `python manage.py fakeproducts`
+
 ### Note
 
 - you can also delete db.sqlite3

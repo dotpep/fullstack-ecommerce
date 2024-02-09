@@ -2,4 +2,4 @@
 
 .env
 
-core\static\admin
+core/static/admin/

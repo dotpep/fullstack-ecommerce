@@ -7,9 +7,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <!-- TODO: search product view -->
-        {% comment %}action="{% url 'shop:search-products' %}"{% endcomment %}
-        <form  method="get">
+        <form action="{% url 'shop:search-products' %}" method="get">
             <div class="mx-auto my-3 d-lg-none d-sm-block d-xs-block">
             <div class="input-group">
                 <span class="border-success input-group-text bg-success text-white"><i
@@ -21,8 +19,7 @@
     </form>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
 
-            {% comment %}action="{% url 'shop:search-products' %}"{% endcomment %}
-            <form  method="get">
+            <form action="{% url 'shop:search-products' %}" method="get">
             <div class="ms-auto d-none d-lg-block">
                 <div class="input-group">
                     <span class="border-success input-group-text text-white search-button"><i
