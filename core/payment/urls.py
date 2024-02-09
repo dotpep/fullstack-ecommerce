@@ -15,4 +15,6 @@ urlpatterns = [
     # Webhooks
     path('stripe-webhook/', stripe_webhook, name='stripe-webhook'),
     path('webhook-yookassa/', yookassa_webhook, name='webhook-yookassa'),
+    # Order PDF
+    path("order/<int:order_id>/pdf/", views.admin_order_pdf, name="admin-order-pdf")
 ]

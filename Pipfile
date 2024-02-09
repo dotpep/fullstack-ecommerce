@@ -20,6 +20,7 @@ django-celery-beat = "*"
 django-celery = "*"
 flower = "*"
 django-celery-results = "*"
+weasyprint = "*"
 
 [dev-packages]
 
