@@ -25,7 +25,7 @@ class ProductAdmin(admin.ModelAdmin):
     """
     Product Model Admin
     """
-    list_display = ('title', 'brand', 'price', 'slug', 'available', 'created_at', 'updated_at')
+    list_display = ('title', 'brand', 'price', 'discount', 'available', 'created_at', 'updated_at')
     list_filter = ('available', 'created_at', 'updated_at')
     ordering = ('title',)
 

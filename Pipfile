@@ -21,6 +21,9 @@ django-celery = "*"
 flower = "*"
 django-celery-results = "*"
 weasyprint = "*"
+faker = "*"
+django-htmx = "*"
+sorl-thumbnail = "*"
 
 [dev-packages]
 

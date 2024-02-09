@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from django.views.generic import ListView
 
 from .models import Category, ProductProxy
 
@@ -6,10 +7,20 @@ from .models import Category, ProductProxy
 from django.http import HttpRequest, HttpResponse
 from django.db.models import SlugField
 
-def products_view(request: HttpRequest) -> HttpResponse:
-    products = ProductProxy.objects.all()
-    context = {'products': products}
-    return render(request, 'shop/products.html', context)
+
+#def products_view(request: HttpRequest) -> HttpResponse:
+#    products = ProductProxy.objects.all()
+#    context = {'products': products}
+#    return render(request, 'shop/products.html', context)
+class ProductListView(ListView):
+    model = ProductProxy
+    context_object_name = "products"
+    paginate_by = 15
+    
+    def get_template_names(self) -> list[str]:
+        if self.request.htmx:
+            return "shop/components/product_list.html"
+        return "shop/products.html"
 
 
 def product_detail_view(request: HttpRequest, slug: SlugField) -> HttpResponse:

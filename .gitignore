@@ -1,3 +1,5 @@
 *.gif
 
 .env
+
+core\static\admin
