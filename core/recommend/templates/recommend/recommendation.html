@@ -96,6 +96,7 @@
             <strong>Comment:</strong><br>
             {{ review.content }}
         </div>
+        <!-- TODO: Implement changing comment text -->
         {% comment %}
         <div>
             {% if request.user.is_authenticated and request.user == review.created_by %}

@@ -29,6 +29,7 @@ djoser = "*"
 djangorestframework-simplejwt = "*"
 drf-yasg = "*"
 psycopg2-binary = "*"
+gunicorn = "*"
 
 [dev-packages]
 

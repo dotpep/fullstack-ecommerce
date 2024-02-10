@@ -93,7 +93,6 @@ def complete_order(request: HttpRequest):
             }
         )
         
-        # FIXME: proccessed only one product instead 2... choosen in cart in payment method with stripe 
         # TODO: refactor this match case payment type stripe and yookassa to modular and dry
 
         match payment_type:

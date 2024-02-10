@@ -159,6 +159,8 @@
                 // Handle success, for example, remove elements from the page
                 $('.product-item').remove();
                 $('#total').text('$0');
+
+                location.reload()
             },
             error: function (error, status) {
                 console.log(error)

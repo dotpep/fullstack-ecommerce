@@ -145,6 +145,26 @@ Faker for creating fake product
 - faker script that created fake products added to django base command (BaseCommand) path file: `management/command/fakeproducts.py`
 - and you can run it by `python manage.py fakeproducts`
 
+---
+
+Configure Postgresql Database
+
+- install postgres [PostgreSQL Downloads](https://www.postgresql.org/download/)
+- in postgres shell to enter `psql -U postgres` and enter password
+- new user `CREATE USER username WITH PASSWORD 'Userpassword1234'`;
+- new database `CREATE DATABASE database_name OWNER username;`
+- grant privileges to the user `GRANT ALL PRIVILEGES ON DATABASE database_name TO username;`
+- see created database `\l` and to exit `\q`
+- uncomment section of PostgreSQL in settings if needed
+- add variable to `.env`
+
+```text
+POSTGRES_DB=database_name
+POSTGRES_USER=username
+POSTGRES_PASSWORD=Userpassword1234
+POSTGRES_HOST=db
+```
+
 ### Note
 
 - you can also delete db.sqlite3
