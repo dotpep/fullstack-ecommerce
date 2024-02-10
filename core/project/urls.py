@@ -14,7 +14,8 @@ urlpatterns = [
     path('account/', include('account.urls', namespace='account')),
     path('payment/', include('payment.urls', namespace='payment')),
     path('recommend/', include('recommend.urls', namespace='recommend')),
-    path('email/', include(email_urls), name='email-verification'),
+    path('email/', include(email_urls), name='email-verification'),  # FIXME: replace name to namespace
+    path('api/v1/', include('api.urls', namespace='api')),
     path('', views.index_view, name='index'),
 ]
 

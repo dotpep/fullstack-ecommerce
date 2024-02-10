@@ -24,6 +24,11 @@ weasyprint = "*"
 faker = "*"
 django-htmx = "*"
 sorl-thumbnail = "*"
+djangorestframework = "*"
+djoser = "*"
+djangorestframework-simplejwt = "*"
+drf-yasg = "*"
+psycopg2-binary = "*"
 
 [dev-packages]
 

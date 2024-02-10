@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 
 import environ
 from django.contrib import messages
@@ -31,7 +32,7 @@ SECRET_KEY = 'django-insecure-o!66*o(mj#%z!d+1ouqf*476jgxk7yy^5c1a3l94*72-!4wo(s
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -54,6 +55,9 @@ INSTALLED_APPS = [
     'django_celery_results',
     'sorl.thumbnail',
     "django_htmx",
+    'rest_framework',
+    'djoser',
+    'drf_yasg',
     
     
     # Apps
@@ -62,6 +66,7 @@ INSTALLED_APPS = [
     'account.apps.AccountConfig',
     'payment.apps.PaymentConfig',
     'recommend.apps.RecommendConfig',
+    'api.apps.ApiConfig',
 ]
 
 MIDDLEWARE = [
@@ -250,3 +255,30 @@ CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 #     },
 # }
 
+
+# Django REST framework
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    "DEFAULT_PERMISSION_CLASSES": [
+        "api.permissions.IsAdminOrReadOnly",
+    ],
+    "DEFAULT_PAGINATION_CLASS": "api.pagination.StandardResultsSetPagination",
+    "PAGE_SIZE": 15,
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+}
+
+#DJOSER = {
+#    "LOGIN_FIELD": "email",
+#    "SERIALIZERS": {
+#        "user_create": "api.serializers.CustomUserCreateSerializer",
+#    },
+#    'AUTH_HEADER_TYPES': ('JWT',),
+
+#}
