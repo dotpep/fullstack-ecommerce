@@ -4,7 +4,55 @@ Full-Stack Django ecommerce project.
 
 ## Features
 
-- [ ] 
+- Faker generate fakeproducts
+- API support with Swagger and Redoc documentation
+- Celery with Redis, Celery beat and Flower
+- Docker-compose for Nginx, Gunicorn, PostgreSQL, Celery, Redis and etc.
+
+## Tasks
+
+- [ ] Add poetry instead pipenv
+
+## Tech stack
+
+Back-end:
+
+- Python
+- Django
+- Django Rest Framework (DRF)
+- Djoser Auth
+- API
+- Postgres
+- Redis
+- Celery
+
+Other additonal:
+
+- Flower for monitoring celery
+- WeasyPrint for generating pdf paymnet invoice reports
+- Django Crispy Forms
+- Email Verification
+
+Server-side and Othes:
+
+- Swagger and Redoc Docs
+- Nginx
+- Gunicorn
+- Docker
+- Docker Compose
+- GitHub Actions
+- Git
+
+Front-end:
+
+- Django HTMX
+- JavaScript
+- Ajax
+- HTML, CSS
+- Bootstrap and Font Awesome
+Third party API services:
+- Stripe
+- Yookassa
 
 ## Installation
 
@@ -169,48 +217,5 @@ POSTGRES_HOST=db
 
 - you can also delete db.sqlite3
 - specify google fonts in settings `GOOGLE_FONTS = ['Montserrat:wght@300,400,500', 'Roboto']` and pass it to (`base.html` and `index.html`)
-
-## Tech stack
-
-Back-end:
-
-- Python
-- Django
-- Django Rest Framework (DRF)
-- Djoser Auth
-- API
-- Postgres
-- Redis
-- Celery
-
-Other additonal:
-
-- Flower for monitoring celery
-- WeasyPrint for generating pdf paymnet invoice reports
-- Django Crispy Forms
-- Email Verification
-
-Server-side and Othes:
-
-- Swagger and Redoc Docs
-- Nginx
-- Gunicorn
-- Docker
-- Docker Compose
-- GitHub Actions
-- Git
-
-Front-end:
-
-- Django HTMX
-- JavaScript
-- Ajax
-- HTML, CSS
-- Bootstrap and Font Awesome
-Third party API services:
-- Stripe
-- Yookassa
-
-## Contribution
 
 ## LICENCE
