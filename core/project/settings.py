@@ -257,7 +257,6 @@ CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 
 
 # Django REST framework
-
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -265,20 +264,31 @@ REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
         "api.permissions.IsAdminOrReadOnly",
     ],
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle',
+        'api.throttles.AdminRateThrottle'
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '6/minute',
+        'user': '20/minute',
+        'admin': '40/minute',
+    },
     "DEFAULT_PAGINATION_CLASS": "api.pagination.StandardResultsSetPagination",
     "PAGE_SIZE": 15,
 }
 
+
+# Authentication
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 }
 
-#DJOSER = {
-#    "LOGIN_FIELD": "email",
-#    "SERIALIZERS": {
-#        "user_create": "api.serializers.CustomUserCreateSerializer",
-#    },
-#    'AUTH_HEADER_TYPES': ('JWT',),
-
-#}
+DJOSER = {
+    "LOGIN_FIELD": "email",
+    "SERIALIZERS": {
+        "user_create": "api.serializers.CustomUserCreateSerializer",
+    },
+    'AUTH_HEADER_TYPES': ('JWT',),
+}
